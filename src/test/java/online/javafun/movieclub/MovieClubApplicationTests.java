@@ -8,3 +8,6 @@ class MovieClubApplicationTests {
 
     @Test
     void contextLoads() {
+    }
+
+}
