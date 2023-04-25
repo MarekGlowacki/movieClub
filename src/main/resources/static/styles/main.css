@@ -225,3 +225,31 @@ i powinna zajmować większość dostępnej przestrzeni
     border: 1px #6d6d6d solid;
 }
 /*Movie.html END*/
+/*Odstęp pod nagłówkami sekcji*/
+.movie-section-heading {
+    margin-bottom: 8px;
+}
+/*Wyśrodkowanie trailera*/
+.movie-trailer {
+    display: block;
+    margin: auto;
+}
+
+/*Responsive movie.html*/
+@media only screen and (min-width: 992px) {
+    /*Dodajemy rozkład elastyczny, elementy będą wyświetlane w jednym wierszu*/
+    .movie {
+        display: flex;
+        justify-content: space-between;
+    }
+    /*Przyciski powinny wyświetlać się obok siebie, bez zawijania wiersza*/
+    .movie-rating-buttons {
+        display: flex;
+        flex-wrap: nowrap;
+    }
+    /*Większe odstępy między przyciskami*/
+    .movie-rating-button {
+        font-size: 1.2rem;
+        margin: 0 4px;
+    }
+}
