@@ -20,9 +20,9 @@
         <div class="movie-summary-info">
           <h1 class="movie-summary-title" th:text="${movie.title}">Lord of the rings</h1>
           <p class="movie-summary-original-title" th:text="${movie.originalTitle}">Lord of the rings</p>
-          <p class="movie-summary-item" th:text="|Rok: ${movie.releaseYear}|">Year: 2001</p>
+          <p class="movie-summary-item" th:text="|Year: ${movie.releaseYear}|">Year: 2001</p>
           <p class="movie-summary-item">Genre: <a href="#"
-                                                    th:href="@{|/gatunek/${movie.genre}|}"
+                                                    th:href="@{|/genre/${movie.genre}|}"
                                                     th:text="${movie.genre}">Fantasy</a>
           </p>
           <p class="movie-summary-item" th:text="${movie.shortDescription}">
