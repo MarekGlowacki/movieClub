@@ -12,8 +12,8 @@
             <li class="movie-list-item" th:each="movie: ${movies}">
                 <a href="#" th:href="@{|/film/${movie.id}|}">
                     <img src="../static/img/poster-placeholder.png"
-                         th:src="@{/img/poster-placeholder.png}"
-                         alt="Film title"
+                         th:src="${movie.poster ne null} ? @{|/img/${movie.poster}|} : @{/img/poster-placeholder.png}"
+                         alt="movie title"
                          class="movie-list-item-poster">
                 </a>
                 <div class="movie-list-item-card">

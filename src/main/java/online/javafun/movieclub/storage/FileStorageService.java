@@ -19,7 +19,7 @@ public class FileStorageService {
     private final String imageStorageLocation;
 
     public FileStorageService(@Value("${app.storage.location}") String fileStorageLocation) throws FileNotFoundException {
-        this.fileStorageLocation = fileStorageLocation;
+        this.fileStorageLocation = fileStorageLocation + "/files/";
         this.imageStorageLocation = fileStorageLocation + "/img/";
         Path fileStoragePath = Path.of(fileStorageLocation);
         checkDirectoryExists(fileStoragePath);
