@@ -332,3 +332,11 @@ textarea {
 .mc-form > input[type=file] {
     color: white;
 }
+
+#genre {
+    color: grey;
+}
+
+#genre option {
+    color: black;
+}
