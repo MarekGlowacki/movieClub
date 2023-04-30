@@ -9,7 +9,7 @@
 <body>
 <main class="main-content" layout:fragment="content">
   <h2 class="list-heading">Dodaj nowy gatunek filmowy</h2>
-  <form action="" method="post" class="mc-form" th:object="${genre}">
+  <form action="#" th:action="@{/admin/add-genre}" method="post" class="mc-form" th:object="${genre}">
     <label for="genreName">Name</label>
     <input type="text" id="genreName" placeholder="np. Comedy" th:field="*{name}">
     <label for="movieShortDescription">Description - max 200 signs</label>
