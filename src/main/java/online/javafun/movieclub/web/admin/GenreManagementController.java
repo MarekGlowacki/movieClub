@@ -28,7 +28,7 @@ public class GenreManagementController {
         genreService.addGenre(genre);
         redirectAttributes.addFlashAttribute(
                 AdminController.NOTIFICATION_ATTRIBUTE,
-                "Gatunek %s został zapisany".formatted(genre.getName()));
+                "Genre %s saved".formatted(genre.getName()));
         return "redirect:/admin";
     }
 }
