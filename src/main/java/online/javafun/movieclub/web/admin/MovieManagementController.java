@@ -38,7 +38,7 @@ public class MovieManagementController {
         movieService.addMovie(movie);
         redirectAttributes.addFlashAttribute(
                 AdminController.NOTIFICATION_ATTRIBUTE,
-                "Film %s został zapisany".formatted(movie.getTitle()));
+                "Movie %s saved".formatted(movie.getTitle()));
         return "redirect:/admin";
     }
 }
