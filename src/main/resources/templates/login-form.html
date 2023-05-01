@@ -15,6 +15,9 @@
        class="mc-form-message">
       Login error.
     </p>
+    <p th:if="${param.logout}" class="mc-form-message">
+      Successfully logout. You can login again.
+    </p>
     <label for="username">Email</label>
     <input id="username" name="username" placeholder="username">
     <label for="password">Password</label>
