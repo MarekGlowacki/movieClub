@@ -6,6 +6,9 @@
 <body>
 <div class="container">
     <main class="main-content" layout:fragment="content">
+        <p class="notification-bar" th:if="${notification}" th:text="${notification}">
+            notification bar
+        </p>
         <h2 class="list-heading" th:text="${heading}">Promoted Videos / Category Name</h2>
         <p class="list-description" th:text="${description}">Section description</p>
         <ul class="movie-list" th:remove="all-but-first">
