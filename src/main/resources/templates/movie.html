@@ -2,6 +2,7 @@
 <html lang="pl"
       xmlns:th="https://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{layout}">
 <head>
   <title th:text="|${movie.title} - MovieClub|">movie title - MovieClub</title>
@@ -32,22 +33,28 @@
       </div>
       <div class="movie-rating-container movie-section">
         <h2 class="movie-section-heading">Rating</h2>
-        <div>
-          <p class="movie-rating-value" th:text="${avgRating}">4.0</p>
-          <p style="text-align: center">Rates number: 134</p>
+        <p th:unless="${movie.ratingCount}">No votes</p>
+        <div th:if="${movie.ratingCount}">
+          <p class="movie-rating-value" th:text="${#numbers.formatDecimal(movie.avgRating, 1, 1)}">4.0</p>
+          <p th:text="|Liczba ocen: ${movie.ratingCount}|">Votes total: 134</p>
         </div>
-        <form action="#" class="movie-rating-form">
+        <form action="#" th:action="@{/rate-movie}" method="post"
+              sec:authorize="isAuthenticated()"
+              class="movie-rating-form">
           <p>Your rate</p>
-          <input type="hidden" name="movieId">
+          <input type="hidden" name="movieId" th:value="${movie.id}">
           <div class="movie-rating-buttons">
-            <button class="movie-rating-button"><i class="fa-solid fa-star"></i></button>
-            <button class="movie-rating-button"><i class="fa-solid fa-star"></i></button>
-            <button class="movie-rating-button"><i class="fa-solid fa-star"></i></button>
-            <button class="movie-rating-button"><i class="fa-solid fa-star"></i></button>
-            <button class="movie-rating-button"><i class="fa-regular fa-star"></i></button>
+            <button class="movie-rating-button"
+                    name="rating"
+                    th:each="i: ${#numbers.sequence(1, 5)}"
+                    th:value="${i}">
+              <i class="fa-star" th:classappend="${i <= userRating ? 'fa-solid' : 'fa-regular'}"></i>
+            </button>
           </div>
         </form>
-        <p><a href="#">Login</a>, for vote</p>
+        <p sec:authorize="!isAuthenticated()">
+          <a href="#" th:href="@{/login}">Login</a>, for vote
+        </p>
       </div>
     </section>
     <section class="movie-trailer-container movie-section">
