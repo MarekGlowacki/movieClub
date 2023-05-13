@@ -54,7 +54,7 @@ public class MovieService {
         Genre genre = genreRepository.findByNameIgnoreCase(movieToSave.getGenre()).orElseThrow();
         movie.setGenre(genre);
         if (movieToSave.getPoster() != null) {
-            String savedFileName = fileStorageService.saveImage(movieToSave.getPoster());
+            String savedFileName = fileStorageService.storeFile(movieToSave.getPoster());
             movie.setPoster(savedFileName);
         }
         movieRepository.save(movie);
