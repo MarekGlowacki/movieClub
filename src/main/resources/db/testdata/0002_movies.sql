@@ -27,3 +27,5 @@ values ('Avengers', 'The Avengers', 2012, true, 1, 'eOrNdBpGMv8',
 	As a result, Mufasa dies, and Simba in guilt leaves Lion''s Land. The emaciated lion is found by two cheerful friends - Timon the suricat and Pumbaa the warthog. They impart their great life wisdom to the young lion: hakuna matata - or "don''t worry".
 	Simba leads a carefree life with Timon and Pumbaa until he meets Nala, his childhood friend, who tells him about the cruelty and destruction in the land, ruled by the Taint. Despite this, Simba can''t decide to return, as he is still running from the past....
 	Will the spirit of Mufasa help Simba make the right decision? ', 'The story of a young lion and his friends', 'krol_lew.jpg');
+
+('original', 'english', year, false, )
