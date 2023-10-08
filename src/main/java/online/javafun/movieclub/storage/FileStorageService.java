@@ -1,10 +1,13 @@
 package online.javafun.movieclub.storage;
 
+import org.apache.commons.io.FilenameUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -12,33 +15,54 @@ import java.nio.file.StandardCopyOption;
 
 @Service
 public class FileStorageService {
-    private final Path fileStorageLocation;
+    private final String fileStorageLocation;
+    private final String imageStorageLocation;
 
-    public FileStorageService(FileStorageProperties fileStorageProperties) throws FileStorageException {
-        this.fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir())
-                .toAbsolutePath().normalize();
+    public FileStorageService(@Value("${app.storage.location}") String storageLocation) throws FileNotFoundException {
+        this.fileStorageLocation = storageLocation + "/files/";
+        this.imageStorageLocation = storageLocation + "/img/";
+        Path fileStoragePath = Path.of(this.fileStorageLocation);
+        checkDirectoryExists(fileStoragePath);
+        Path imageStoragePath = Path.of(this.imageStorageLocation);
+        checkDirectoryExists(imageStoragePath);
+    }
 
-        try {
-            Files.createDirectories(this.fileStorageLocation);
-        } catch (Exception e) {
-            throw new FileStorageException("Could not create the directory where the uploaded files will be stored", e);
+    private void checkDirectoryExists(Path path) throws FileNotFoundException {
+        if (Files.notExists(path)) {
+            throw new FileNotFoundException("Directory %s does not exist.".formatted(path.toString()));
         }
     }
 
-    public String storeFile(MultipartFile file) {
-        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+    public String saveImage(MultipartFile file) {
+        return saveFile(file, imageStorageLocation);
+    }
 
+    public String saveFile(MultipartFile file) {
+        return saveFile(file, fileStorageLocation);
+    }
+
+    private String saveFile(MultipartFile file, String storageLocation) {
+        Path filePath = createFilePath(file, storageLocation);
         try {
-            if (fileName.contains("..")) {
-                throw new FileStorageException("Sorry! Filename contains invalid path sequence " + fileName);
-            }
-
-            Path targetLocation = this.fileStorageLocation.resolve(fileName);
-            Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
-
-            return fileName;
+            Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+            return filePath.getFileName().toString();
         } catch (IOException e) {
-            throw new FileStorageException("Could not store file " + fileName + ". Please try again!", e);
+            throw new UncheckedIOException(e);
         }
+    }
+
+    private Path createFilePath(MultipartFile file, String storageLocation) {
+        String originalFileName = file.getOriginalFilename();
+        String fileBaseName = FilenameUtils.getBaseName(originalFileName);
+        String fileExtension = FilenameUtils.getExtension(originalFileName);
+        String completeFilename;
+        Path filePath;
+        int fileIndex = 0;
+        do {
+            completeFilename = fileBaseName + fileIndex + "." + fileExtension;
+            filePath = Paths.get(storageLocation, completeFilename);
+            fileIndex++;
+        } while (Files.exists(filePath));
+        return filePath;
     }
 }
