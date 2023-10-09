@@ -4,3 +4,6 @@ spring:
       ddl-auto: validate
   liquibase:
     change-log: classpath:db/changelog/master.xml
+app:
+  storage:
+    location: ./uploads/

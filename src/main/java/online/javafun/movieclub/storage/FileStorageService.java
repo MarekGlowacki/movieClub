@@ -21,24 +21,10 @@ public class FileStorageService {
     public FileStorageService(@Value("${app.storage.location}") String storageLocation) throws FileNotFoundException {
         this.fileStorageLocation = storageLocation + "/files/";
         this.imageStorageLocation = storageLocation + "/img/";
-        Path fileStoragePath = Path.of(this.fileStorageLocation);
-        checkDirectoryExists(fileStoragePath);
-        Path imageStoragePath = Path.of(this.imageStorageLocation);
-        checkDirectoryExists(imageStoragePath);
-    }
-
-    private void checkDirectoryExists(Path path) throws FileNotFoundException {
-        if (Files.notExists(path)) {
-            throw new FileNotFoundException("Directory %s does not exist.".formatted(path.toString()));
-        }
     }
 
     public String saveImage(MultipartFile file) {
         return saveFile(file, imageStorageLocation);
-    }
-
-    public String saveFile(MultipartFile file) {
-        return saveFile(file, fileStorageLocation);
     }
 
     private String saveFile(MultipartFile file, String storageLocation) {

@@ -19,7 +19,7 @@ public class HomeController {
     public String home(Model model) {
         List<MovieDto> promotedMovies = movieService.findAllPromotedMovies();
         model.addAttribute("heading", "Promoted movies");
-        model.addAttribute("description", "Movies We are recommend");
+        model.addAttribute("description", "Movies we recommend");
         model.addAttribute("movies", promotedMovies);
         return "movie-listing";
     }
