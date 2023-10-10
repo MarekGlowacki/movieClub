@@ -1,7 +1,7 @@
 spring:
   datasource:
-    url: jdbc:mysql://80.211.205.197:3306/movieclub
     driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://mysql:3306/movieclub
     username: movieClub
     password: N27xLvddt80zVCW
   liquibase:
