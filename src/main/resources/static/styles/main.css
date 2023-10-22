@@ -233,6 +233,8 @@ i powinna zajmować większość dostępnej przestrzeni
 .movie-trailer {
     display: block;
     margin: auto;
+    width: 100%;
+    height: 315px;
 }
 
 /*Responsive movie.html*/
