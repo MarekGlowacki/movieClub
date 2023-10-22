@@ -3,7 +3,6 @@ spring:
     hibernate:
       ddl-auto: validate
   liquibase:
-    contexts: prod
     change-log: classpath:db/changelog/master.xml
 app:
   storage:
