@@ -244,6 +244,12 @@ i powinna zajmować większość dostępnej przestrzeni
         display: flex;
         justify-content: space-between;
     }
+
+    .movie-trailer {
+        width: 100%;
+        height: 315px;
+    }
+
     /*Przyciski powinny wyświetlać się obok siebie, bez zawijania wiersza*/
     .movie-rating-buttons {
         display: flex;
